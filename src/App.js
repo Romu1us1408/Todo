@@ -3,20 +3,6 @@ import {useEffect, useState} from "react";
 import TaskCard from "./components/TaskCard";
 import NewTaskForm from "./components/NewTaskForm";
 import axios from "axios";
-import{ThemeProvider} from "@material-ui/styles";
-
-import {
-  AppBar,
-  CssBaseline,
-  Typography,
-  createMuiTheme
-} from "@material-ui/core";
-
-const theme = createMuiTheme({
-    palette:{
-      type: "dark"
-    }
-});
 
 const DUMMY_TASKS = [
   {
@@ -40,52 +26,35 @@ function App() {
 
   const [todo, setTodo] = useState([]);
 
-  const axios = require('axios');
+  // const axios = require('axios');
 
   useEffect(() => {
-    axios.get('http://localhost:5000/').then((result) => {
+    axios.get('http://localhost:5000/api/tasks').then((result) => {
        setTodo(result.data)
     })
   }, [])
 
-  // useEffect(() => {
-  //   axios.get('https://jsonplaceholder.typicode.com/todos')
-  //       .then(function (response) {
-  //         const newTask = [...todo]
-  //         for (const obj of response.data) {
-  //           const newArray = {
-  //             id: obj.id,
-  //             done: obj.completed,
-  //             des: obj.title
-  //           }
-  //           newTask.push(newArray);
-  //         }
-  //         setTodo(newTask);
-  //       })
-  //       .catch(function (error) {
-  //         // handle error
-  //         setTodo(DUMMY_TASKS)
-  //       })
-  // },[])
-
   function addTask(task){
-    const newTask = [...todo]
-    newTask.push(task)
-    setTodo(newTask);
+    axios.post('http://localhost:5000/api/tasks', task)
+        .then((result) => {
+          setTodo(result.data)
+        })
   }
 
   function removeTask(removeTaskId){
-    const newTodo = [...todo]
-    for (let i = 0; i < todo.length; i++) {
-      if (removeTaskId === newTodo[i].id) {
-        newTodo.splice(i, 1);
-        break
-      }
-    }
-    setTodo(newTodo);
+    // const newTodo = [...todo]
+    // for (let i = 0; i < todo.length; i++) {
+    //   if (removeTaskId === newTodo[i].id) {
+    //     newTodo.splice(i, 1);
+    //     break
+    //   }
+    // }
+    // setTodo(newTodo);
+    axios.delete('http://localhost:5000/api/tasks/' + removeTaskId)
+        .then((result) => {
+          setTodo(result.data)
+        })
   }
-
-
 
   return (
     <div className="appContainer">
