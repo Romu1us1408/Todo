@@ -1,42 +1,25 @@
 import './App.css';
-import {useEffect, useState} from "react";
-import TaskCard from "./components/TaskCard";
-import NewTaskForm from "./components/NewTaskForm";
-import axios from "axios";
+import ToDoManager from "./components/ToDoManager";
+import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import Login from "./components/Login";
+import NewUser from "./components/NewUser";
 
 function App() {
 
-  const [todo, setTodo] = useState([]);
-
-  useEffect(() => {
-    axios.get('http://localhost:5000/api/tasks').then((result) => {
-       setTodo(result.data)
-    })
-  }, [])
-
-  function addTask(task){
-    axios.post('http://localhost:5000/api/tasks', task)
-        .then((result) => {
-          setTodo(result.data)
-        })
-  }
-
-  function removeTask(removeTaskId){
-    axios.delete('http://localhost:5000/api/tasks/' + removeTaskId)
-        .then((result) => {
-          setTodo(result.data)
-        })
-  }
-
   return (
-    <div className="appContainer">
-      <NewTaskForm addTask={addTask}/>
-      <div>
-        {
-          todo.map(task => <TaskCard key={todo.id} task={task}  removeTaskId={removeTask} />)
-        }
-      </div>
-    </div>
+      <BrowserRouter>
+      <Switch>
+        <Route path="/todo/:user_id" exact >
+          <ToDoManager/>
+        </Route>
+        <Route path="/" exact >
+          <Login/>
+        </Route>
+        <Route path="/create-account" exact >
+          <NewUser/>
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 

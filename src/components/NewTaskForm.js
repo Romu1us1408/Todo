@@ -21,11 +21,10 @@ const NewTaskForm = (props) => {
     return (
         <form className="newTaskCardForm">
             <div>
-                <label>Add Task: </label>
                 <TextField className="textField" variant="outlined" color="primary" label="Todo Description" value={des} onChange={handleDesChange}/>
             </div>
-            <div>
-                <Button variant="contained" color="primary" onClick={handleButtonClick}>Add</Button>
+            <div className="button">
+                <Button variant="contained" color="primary" onClick={handleButtonClick}>Login</Button>
             </div>
         </form>
     );

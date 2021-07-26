@@ -28,9 +28,17 @@
   color: #61dafb;
 }
 
-/*.appContainer{*/
-/*  background: black;*/
-/*}*/
+.tasks{
+  padding: 5px;
+}
+
+.appContainer{
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
+  flex-direction: row;
+}
 
 @keyframes App-logo-spin {
   from {
