@@ -1,6 +1,6 @@
 import React, {useContext, useState, useEffect} from 'react';
 import { Button, TextField} from "@material-ui/core";
-import './NewTaskForm.css';
+import './css/NewTaskForm.css';
 import UserContext from "./UserContext";
 
 const NewTaskForm = (props) => {
@@ -28,12 +28,15 @@ const NewTaskForm = (props) => {
             <div>
                 <TextField className="textField" variant="outlined" color="primary" label="Todo Description" value={des} onChange={handleDesChange}/>
             </div>
-            <div className="button">
-                <Button variant="contained" color="primary" onClick={handleButtonClick}>Add</Button>
+            <div className="button-con">
+                <div className="button">
+                    <Button variant="contained" color="primary" onClick={handleButtonClick}>Add</Button>
+                </div>
+                <div className="button">
+                    <Button variant="contained" color="primary" onClick={handleLogOut}>Logout</Button>
+                </div>
             </div>
-            <div className="button">
-                <Button variant="contained" color="primary" onClick={handleLogOut}>Logout</Button>
-            </div>
+
         </form>
     );
 };

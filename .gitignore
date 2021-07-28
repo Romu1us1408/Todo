@@ -25,3 +25,4 @@ yarn-error.log*
 /ENV
 .idea
 __pycache__
+/sql/postgres_public_tasks.sql

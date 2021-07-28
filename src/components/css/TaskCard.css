@@ -1,0 +1,13 @@
+.taskCardForm{
+    display: flex;
+    justify-content: space-between;
+    align-content: center;
+}
+
+.label{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    padding-top: 18px;
+
+}

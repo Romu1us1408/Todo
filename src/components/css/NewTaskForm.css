@@ -1,0 +1,21 @@
+.newTaskCardForm{
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+    justify-content: space-between;
+}
+/*.textField{*/
+/*    colorSecondary*/
+/*}*/
+
+.button{
+    padding: 10px;
+}
+
+.textField{
+    padding: 10px;
+}
+.button-con{
+    display: flex;
+    flex-direction: row;
+}

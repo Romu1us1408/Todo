@@ -4,7 +4,8 @@ import NewTaskForm from "./NewTaskForm";
 import axios from "axios";
 import UserContext from "./UserContext";
 import {useParams, useHistory, useLocation} from "react-router";
-import './ToDoManager.css'
+import './css/ToDoManager.css'
+import {Typography} from "@material-ui/core";
 
 function ToDoManager() {
 
@@ -40,6 +41,10 @@ function ToDoManager() {
 
     return (
         <div className="appContainer">
+            {/*<label>ToDo Today</label>*/}
+            <Typography variant="h3" >
+                Your ToDo List
+            </Typography>
             <NewTaskForm addTask={addTask}/>
             <div>
                 {

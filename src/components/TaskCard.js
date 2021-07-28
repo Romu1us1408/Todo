@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {Button} from "@material-ui/core";
-import './TaskCard.css';
+import {Button, IconButton} from "@material-ui/core";
+import './css/TaskCard.css';
 import DeleteIcon from '@material-ui/icons/Delete';
 import {Checkbox} from "@material-ui/core";
+import {Label} from "@material-ui/icons";
 
 const TaskCard = (props) => {
     const [done, setDone] = useState(false);
@@ -26,19 +27,15 @@ const TaskCard = (props) => {
     return (
         <form>
             <div className="taskCardForm">
-                {/*<input*/}
-                {/*       name="isDone"*/}
-                {/*       type="checkbox"*/}
-                {/*       checked={done}*/}
-                {/*       onChange={handleCheckBoxChange}*/}
-                {/*/>*/}
                 <Checkbox
                     name="isDone"
                     checked={done}
                     onChange={handleCheckBoxChange}
                 />
-                {props.task.des}
-                <Button variant="contained" onClick={handleDeleteClick}><DeleteIcon/></Button>
+                <label className="label">{props.task.des}</label>
+                <IconButton onClick={handleDeleteClick}>
+                    <DeleteIcon fontSize="large"/>
+                </IconButton>
             </div>
         </form>
 
