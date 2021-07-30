@@ -6,6 +6,7 @@ import UserContext from "./UserContext";
 import {useParams, useHistory, useLocation} from "react-router";
 import './css/ToDoManager.css'
 import {Typography} from "@material-ui/core";
+import '@fontsource/roboto';
 
 function ToDoManager() {
 
@@ -26,7 +27,7 @@ function ToDoManager() {
     }, [])
 
     function addTask(task) {
-        axios.post('http://localhost:5000/api/tasks', task)
+        axios.post('http://localhost:5000/api/tasks/', task)
             .then((result) => {
                 setTodo(result.data)
             })
@@ -41,8 +42,7 @@ function ToDoManager() {
 
     return (
         <div className="appContainer">
-            {/*<label>ToDo Today</label>*/}
-            <Typography variant="h3" >
+            <Typography variant="h3" color="secondary">
                 Your ToDo List
             </Typography>
             <NewTaskForm addTask={addTask}/>
