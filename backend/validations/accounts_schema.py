@@ -7,7 +7,7 @@ class AccountsSchema(Schema):
     lName = fields.Str(validate=Length(min=4))
     email = fields.Email()
     password = fields.Str(validate=Length(min=8))
-    passCom = fields.Str(validate=Length(min=8))
+    comPass = fields.Str(validate=Length(min=8))
 
     @validates('password')
     def validate_name(self, input):
@@ -17,5 +17,5 @@ class AccountsSchema(Schema):
 
     @validates_schema
     def passwords_match(self, all_data, **kwargs):
-        if all_data['password'] != all_data['password2']:
+        if all_data['password'] != all_data['comPass']:
             raise ValidationError('passwords must match')

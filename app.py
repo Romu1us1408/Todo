@@ -2,11 +2,24 @@ from flask import Flask
 from flask_cors import CORS
 from backend.views.tasks_view import TaskView
 from backend.views.accounts_view import AccountsView
+from sqlalchemy.engine import URL
+from backend.db import db
 
 # from backend.views.accounts_view import AccountsView
 
 app = Flask(__name__)
 CORS(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = URL(
+    drivername='postgresql',
+    host='localhost',
+    database='postgres',
+    password='admin',
+    port='5432',
+    username='luke'
+)
+
+db.init_app(app)
 
 
 def register_api(view, endpoint, url, pk='id', pk_type='int'):

@@ -1,8 +1,8 @@
 from flask.views import MethodView
 from flask import jsonify, request
 import json
-
-from backend.Task_DB import Task_DB
+from backend.models.tasks import Tasks
+from backend.db import db
 
 
 def deleted_check(raw_data):
@@ -16,16 +16,29 @@ def deleted_check(raw_data):
 class TaskView(MethodView):
 
     def get(self, task_id):
-        raw_data = Task_DB().load()
-        return jsonify(deleted_check(raw_data))
+        raw_tasks = db.session.query(Tasks).all()
+        print(raw_tasks)
+        resp = [t.to_json() for t in raw_tasks]
+        return jsonify(deleted_check(resp))
 
     def delete(self, task_id):
-        Task_DB().update(task_id)
-        raw_data = Task_DB().load()
-        return jsonify(deleted_check(raw_data))
+        db.session.query(Tasks).filter(Tasks.id == task_id).update({Tasks.deleted: True})
+        db.session.commit()
+        raw_tasks = db.session.query(Tasks).all()
+        resp = [t.to_json() for t in raw_tasks]
+        return jsonify(deleted_check(resp))
 
     def post(self):
-        new_task = json.loads(request.data)
-        _TaskTB = Task_DB()
-        _TaskTB.save(new_task)
-        return jsonify(deleted_check(_TaskTB.load()))
+        try:
+            result = json.loads(request.data)
+            new_task = Tasks(
+                des=result['des'],
+                deleted=False,
+                done=False
+            )
+            db.session.add(new_task)
+            db.session.commit()
+
+        except Exception as e:
+            return jsonify({'success': True})
+        return self.get(None)

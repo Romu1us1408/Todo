@@ -2,10 +2,14 @@ from flask.views import MethodView
 from flask import jsonify, request
 from marshmallow import ValidationError
 
+from backend.models.accounts import Accounts
+
 from backend.validations.accounts_schema import AccountsSchema
+from backend.db import db
 
 
 class AccountsView(MethodView):
+
     def get(self, account_id):
         pass
 
@@ -13,6 +17,14 @@ class AccountsView(MethodView):
         account_schema = AccountsSchema()
         try:
             result = account_schema.load(request.json)
+            new_account = Accounts(
+                fName=result['fName'],
+                lName=result['lName'],
+                email=result['email'],
+                password=result['password']
+            )
+            db.session.add(new_account)
+            db.session.commit()
         except ValidationError as e:
             return jsonify(e.messages), 400
         return jsonify({'success': True})

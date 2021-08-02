@@ -1,4 +1,5 @@
 import psycopg2
+from flask_sqlalchemy import SQLAlchemy
 
 
 def get_db_conn():
@@ -9,3 +10,6 @@ def get_db_conn():
         user="luke",
         password="admin"
     )
+
+
+db = SQLAlchemy()
