@@ -9,5 +9,6 @@ class Accounts(db.Model):
     email = db.Column(db.Text)
     password = db.Column(db.Text)
     id = db.Column(db.Integer, primary_key=True)
+    task = db.relationship('Tasks', lazy=False)
 
 

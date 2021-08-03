@@ -1,24 +1,15 @@
+import os
 from flask import Flask
 from flask_cors import CORS
 from backend.views.tasks_view import TaskView
 from backend.views.accounts_view import AccountsView
-from sqlalchemy.engine import URL
 from backend.db import db
-
-# from backend.views.accounts_view import AccountsView
 
 app = Flask(__name__)
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = URL(
-    drivername='postgresql',
-    host='localhost',
-    database='postgres',
-    password='admin',
-    port='5432',
-    username='luke'
-)
-
+config_file_name = os.environ['CONFIG']
+app.config.from_json(config_file_name)
 db.init_app(app)
 
 
