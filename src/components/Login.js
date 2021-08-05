@@ -13,7 +13,7 @@ function Login() {
     const userContext = useContext(UserContext)
 
     const handleLogin = () => {
-        userContext.actions.login(user)
+        userContext.actions.login(user, password)
     }
 
     function handleGoToCreate() {

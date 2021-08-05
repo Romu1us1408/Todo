@@ -9,32 +9,45 @@ import {Typography} from "@material-ui/core";
 import '@fontsource/roboto';
 
 function ToDoManager() {
-
     const [todo, setTodo] = useState([]);
     const context = useContext(UserContext)
     const {user_id} = useParams()
 
     useEffect(() => {
-        if (!context.user || context.user.id !== parseInt(user_id, 10)) {
+        if (!localStorage.getItem('session_token')) {
             context.actions.logout()
         }
-    }, [context.user])
+    }, [])
 
     useEffect(() => {
-        axios.get('http://localhost:5000/api/tasks').then((result) => {
+        axios.get('http://localhost:5000/api/tasks/', {
+            headers: {
+                Authorization: `JWT ${localStorage.getItem('session_token')}`
+            }
+        }).then((result) => {
             setTodo(result.data)
         })
     }, [])
 
+
     function addTask(task) {
-        axios.post('http://localhost:5000/api/tasks/', task)
+        axios.post('http://localhost:5000/api/tasks/', task,
+            {
+                headers: {
+                    Authorization: `JWT ${localStorage.getItem('session_token')}`
+                }
+            })
             .then((result) => {
                 setTodo(result.data)
             })
     }
 
     function removeTask(removeTaskId) {
-        axios.delete('http://localhost:5000/api/tasks/' + removeTaskId)
+        axios.delete('http://localhost:5000/api/tasks/' + removeTaskId, {
+            headers: {
+                Authorization: `JWT ${localStorage.getItem('session_token')}`
+            }
+        })
             .then((result) => {
                 setTodo(result.data)
             })

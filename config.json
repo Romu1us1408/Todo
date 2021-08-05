@@ -1,5 +1,6 @@
 {
   "SQLALCHEMY_TRACK_MODIFICATIONS": false,
   "SQLALCHEMY_DATABASE_URI": "postgresql://luke:admin@localhost:5432/postgres",
-  "SQLALCHEMY_ECHO": true
+  "SQLALCHEMY_ECHO": true,
+  "SECRET_KEY" : "Uf9BFzHtM1PobyM2W9K2rI7gy/Ky5H5yjGUJeX66Vt516fnRGhrC1Bd3pbUv791LCmT66Mh4B/31x6OthQ7dMA=="
 }

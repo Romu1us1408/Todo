@@ -11,7 +11,7 @@ function App() {
       <BrowserRouter>
         <UserProvider>
           <Switch>
-            <Route path="/todo/:user_id" exact >
+            <Route path="/todo" exact >
               <ToDoManager/>
             </Route>
             <Route path="/" exact >

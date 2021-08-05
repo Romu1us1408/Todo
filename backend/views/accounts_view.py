@@ -1,11 +1,10 @@
 from flask.views import MethodView
 from flask import jsonify, request
 from marshmallow import ValidationError
-
 from backend.models.accounts import Accounts
-
 from backend.validations.accounts_schema import AccountsSchema
 from backend.db import db
+import bcrypt
 
 
 class AccountsView(MethodView):
@@ -29,6 +28,7 @@ class AccountsView(MethodView):
                 email=result['email'],
                 password=result['password']
             )
+            new_account.password = bcrypt.hashpw(new_account.password.encode(), bcrypt.gensalt()).decode()
             db.session.add(new_account)
             db.session.commit()
         except ValidationError as e:
